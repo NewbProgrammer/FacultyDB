@@ -4,26 +4,22 @@ import root.dao.FacultyDAO;
 import root.entities.Person;
 import root.entities.Student;
 import root.entities.Teacher;
-
 import java.util.List;
 
 /**
  * Created by Alex on 22.08.14.
+ *
  */
 public class PersonService {
 
     private FacultyDAO facultyDAO;
-
-    private List<Person> persons;
-    private List<Student> students;
-    private List<Teacher> teachers;
 
     public PersonService(FacultyDAO facultyDAO) {
         this.facultyDAO = facultyDAO;
     }
 
     //checked
-    private void createLinks() {
+    private void createLinks(List<Person> persons, List<Student> students, List<Teacher> teachers) {
         for (Person p : persons) {
             for (Student s : students) {
                 if (s.getPersonID() == p.getId()) {
@@ -41,11 +37,11 @@ public class PersonService {
 
     //checked
     public List<Person> findAll() {
-        persons = facultyDAO.getPersonDao().getAll();
-        students = facultyDAO.getStudentDao().getAll();
-        teachers = facultyDAO.getTeacherDao().getAll();
+        List<Person> persons = facultyDAO.getPersonDao().getAll();
+        List<Student> students = facultyDAO.getStudentDao().getAll();
+        List<Teacher> teachers = facultyDAO.getTeacherDao().getAll();
 
-        createLinks();
+        createLinks(persons, students, teachers);
 
         return persons;
     }
@@ -53,8 +49,8 @@ public class PersonService {
     //checked
     public Person findById(long id) {
         Person p = facultyDAO.getPersonDao().getById(id);
-        students = facultyDAO.getStudentDao().getByPersonId(id);
-        teachers = facultyDAO.getTeacherDao().getByPersonId(id);
+        List<Student> students = facultyDAO.getStudentDao().getByPersonId(id);
+        List<Teacher> teachers = facultyDAO.getTeacherDao().getByPersonId(id);
 
         p.setStudentList(students);
 
@@ -65,7 +61,9 @@ public class PersonService {
 
     //checked
     public List<Person> findByName(String name) {
-        persons = facultyDAO.getPersonDao().getByName(name);
+        List<Person> persons = facultyDAO.getPersonDao().getByName(name);
+        List<Student> students;
+        List<Teacher> teachers;
 
         for (Person p : persons) {
             students = facultyDAO.getStudentDao().getByPersonId(p.getId());
@@ -80,7 +78,9 @@ public class PersonService {
 
     //checked
     public List<Person> findByPassport(String passport) {
-        persons = facultyDAO.getPersonDao().getByPassport(passport);
+        List<Person> persons = facultyDAO.getPersonDao().getByPassport(passport);
+        List<Student> students;
+        List<Teacher> teachers;
 
         for (Person p : persons) {
             students = facultyDAO.getStudentDao().getByPersonId(p.getId());
