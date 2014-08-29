@@ -1,10 +1,5 @@
 package root.dao;
 
-import root.entities.Person;
-import root.entities.Student;
-import root.entities.Subject;
-import root.tools.ConnectionManager;
-
 import java.sql.Connection;
 
 /**
@@ -14,7 +9,7 @@ public class FacultyDAO {
     private FormDao formDao;
     private GroupDao groupDao;
     private MajorDao majorDao;
-    private PersonDao personDao;
+    private JDBCPersonDao personDao;
     private StudentDao studentDao;
     private SubjectDao subjectDao;
     private TeacherDao teacherDao;
@@ -23,7 +18,7 @@ public class FacultyDAO {
         this.formDao = new FormDao(connection);
         this.groupDao = new GroupDao(connection);
         this.majorDao = new MajorDao(connection);
-        this.personDao = new PersonDao(connection);
+        this.personDao = new JDBCPersonDao(connection);
         this.studentDao = new StudentDao(connection);
         this.teacherDao = new TeacherDao(connection);
     }
@@ -52,11 +47,11 @@ public class FacultyDAO {
         this.majorDao = majorDao;
     }
 
-    public PersonDao getPersonDao() {
+    public JDBCPersonDao getPersonDao() {
         return personDao;
     }
 
-    public void setPersonDao(PersonDao personDao) {
+    public void setPersonDao(JDBCPersonDao personDao) {
         this.personDao = personDao;
     }
 

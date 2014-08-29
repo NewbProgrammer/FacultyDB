@@ -1,14 +1,11 @@
 package root;
 
 import root.dao.*;
-import root.entities.*;
 import root.services.PersonService;
 import root.tools.ConnectionManager;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -22,7 +19,7 @@ public class Main {
         try (Connection connection = new ConnectionManager().getConnection()
             ) {
             Scanner scan = new Scanner(System.in);
-            PersonDao personDao = new PersonDao(connection);
+            JDBCPersonDao personDao = new JDBCPersonDao(connection);
             StudentDao studentDao = new StudentDao(connection);
             TeacherDao teacherDao = new TeacherDao(connection);
             GroupDao groupDao = new GroupDao(connection);
